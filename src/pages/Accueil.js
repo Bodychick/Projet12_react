@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import EmployeeCreatedModal from '../composant/modal';
 import { states } from '../data/states';
 import DateRangePicker from '../composant/datePicker';
+import { useDispatch } from 'react-redux';
+import { addEmployee } from '../state/store';
 
 const Container = styled.div`
   background-color: #f2f2f2;
@@ -74,14 +76,16 @@ const Confirmation = styled.div`
 
 function EmployeeForm() {
   const [confirmationVisible, setConfirmationVisible] = useState(false);
-  const [selectedDates, setSelectedDates] = useState({ startDate: null, endDate: null });
+  const [selectedStartDate, setSelectedStartDate] = useState(null);
+  const [selectedBirthDate, setSelectedBirthDate] = useState(null);
+  const dispatch = useDispatch();
 
-  const handleDateChange = ({ startDate, endDate }) => {
-    setSelectedDates({ startDate, endDate });
+  const handleDateChange = (date) => {
+    setSelectedStartDate(date);
   };
 
-  const showConfirmationModal = () => {
-    setConfirmationVisible(true);
+  const handleDateChangeDateBirth = (date) => {
+    setSelectedBirthDate(date);
   };
 
   const hideConfirmationModal = () => {
@@ -120,8 +124,7 @@ function EmployeeForm() {
     && state !== ""
     && zipCode !== "")
     {
-      const employees = JSON.parse(localStorage.getItem('employees')) || [];
-      const employee = {
+      const employeeData = {
         firstName,
         lastName,
         dateOfBirth,
@@ -132,8 +135,9 @@ function EmployeeForm() {
         state,
         zipCode,
       };
-      employees.push(employee);
-      localStorage.setItem('employees', JSON.stringify(employees));
+      console.log(employeeData)
+      // Dispatch action to add employee to Redux store
+      dispatch(addEmployee(employeeData));
   
       // Affichage de la confirmation
       setConfirmationVisible(true);
@@ -155,23 +159,28 @@ function EmployeeForm() {
           <Label htmlFor="last-name">Last Name</Label>
           <Input type="text" id="last-name" />
 
-          <Label htmlFor="date-of-birth">Date of Birth</Label>
-          <Input id="date-of-birth" type="text" />
+          <DateRangePicker
+            onDateChange={handleDateChangeDateBirth}
+            startDate2="2023-10-10"
+            endDate2="2023-12-24"
+            label="Date de naissance"
+            id='date-of-birth'
+          />
 
           <div>
             <DateRangePicker
-              initialStartDate={selectedDates.startDate}
-              initialEndDate={selectedDates.endDate}
               onDateChange={handleDateChange}
-              startDate2="06/09/2010"
-              endDate2="25/10/23"
+              startDate2="2023-10-10"
+              endDate2="2023-12-24"
+              label="Date de début"
+              id="start-date"
+              
             />
-            <p>Date de début sélectionnée: {selectedDates.startDate || 'Non définie'}</p>
-            <p>Date de fin sélectionnée: {selectedDates.endDate || 'Non définie'}</p>
+            <p>Date de début: {selectedStartDate || 'Non définie'}</p>
+            <p>Date de naissance : {selectedBirthDate || 'Non définie'}</p>
           </div>
 
-          <Label htmlFor="start-date">Start Date</Label>
-          <Input id="start-date" type="text" />
+  
 
           <fieldset className="address">
             <legend>Address</legend>

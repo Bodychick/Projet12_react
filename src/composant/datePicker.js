@@ -1,20 +1,42 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 
-const DateRangePicker = ({ initialStartDate, initialEndDate, onDateChange, startDate2, endDate2 }) => {
-  const [startDate, setStartDate] = useState(initialStartDate || null);
-  const [endDate, setEndDate] = useState(initialEndDate || null);
 
-  const handleStartDateChange = date => {
+const Input = styled.input`
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+`;
+
+const DatePickerBox = styled.div`
+  display:flex;
+  flex-direction:column;
+`;
+
+const DateRangePicker = ({ onDateChange, label, startDate2, endDate2, id }) => {
+  const currentDate = new Date().toISOString().split('T')[0]; // Récupère la date du jour au format YYYY-MM-DD
+  const [startDate, setStartDate] = useState(currentDate);
+
+  const handleStartDateChange = (date) => {
     setStartDate(date);
-    onDateChange({ startDate: date, endDate });
+    onDateChange(date); // Transmet la date sélectionnée à la fonction onDateChange du parent
   };
 
   return (
     <div>
-      <div>
-        <label>Date de début:</label>
-        <input type="date" value={startDate} min="2023-10-10" max="2023-12-25" onChange={e => handleStartDateChange(e.target.value)} />
-      </div>
+      <DatePickerBox>
+        <label>{label}</label>
+        <Input
+        id={id}
+          className=""
+          type="date"
+          value={startDate}
+          min={startDate2}// Utilisez startDate2 comme valeur minimale
+          max={endDate2}// Utilisez endDate2 comme valeur maximale
+          onChange={(e) => handleStartDateChange(e.target.value)}
+        />
+      </DatePickerBox>
     </div>
   );
 };
