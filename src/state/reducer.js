@@ -16,7 +16,6 @@ export const initialState = {
         return {
           ...state,
         };
-      // Ajoutez d'autres cas pour gérer d'autres actions si nécessaire
       default:
         return state;
     }

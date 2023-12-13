@@ -5,6 +5,7 @@ import { states } from '../data/states';
 import DateRangePicker from '../composant/datePicker';
 import { useDispatch } from 'react-redux';
 import { addEmployee } from '../state/store';
+import { useNavigate } from "react-router-dom"; // Pour la redirection
 
 const Container = styled.div`
   background-color: #f2f2f2;
@@ -65,20 +66,13 @@ const Button = styled.button`
   }
 `;
 
-const Confirmation = styled.div`
-  text-align: center;
-  background-color: #0073e6;
-  color: #fff;
-  padding: 10px;
-  border-radius: 4px;
-  margin-top: 20px;
-`;
-
 function EmployeeForm() {
   const [confirmationVisible, setConfirmationVisible] = useState(false);
   const [selectedStartDate, setSelectedStartDate] = useState(null);
   const [selectedBirthDate, setSelectedBirthDate] = useState(null);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
 
   const handleDateChange = (date) => {
     setSelectedStartDate(date);
@@ -102,6 +96,10 @@ function EmployeeForm() {
       stateSelect.appendChild(option);
     });
   }, []);
+
+  const handleNavigation = () => {
+    navigate("/liste-employees")
+  }
 
   const saveEmployee = () => {
     const firstName = document.getElementById('first-name').value;
@@ -151,6 +149,7 @@ function EmployeeForm() {
       <Container>
         <Title>
           <TitleText>HRnet</TitleText>
+          <button onClick={handleNavigation}>Voir Liste</button>
         </Title>
         <CreateEmployeeForm>
           <Label htmlFor="first-name">First Name</Label>
@@ -211,7 +210,11 @@ function EmployeeForm() {
         <Button onClick={saveEmployee}>Save</Button>
       </Container>
       {confirmationVisible && (
-        <EmployeeCreatedModal show={confirmationVisible} onClose={hideConfirmationModal} />
+        <EmployeeCreatedModal 
+        show={confirmationVisible} 
+        onClose={hideConfirmationModal} 
+        message="Congratulations! You have successfully created a new employee."
+        titre="Employee Created!"/>
       )}
     </div>
   );

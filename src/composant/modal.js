@@ -45,7 +45,7 @@ const CloseButton = styled.button`
   cursor: pointer;
 `;
 
-function EmployeeCreatedModal({ show, onClose }) {
+function EmployeeCreatedModal({ show, onClose, titre, message }) {
   if (!show) {
     return null;
   }
@@ -54,10 +54,10 @@ function EmployeeCreatedModal({ show, onClose }) {
     <ModalOverlay>
       <ModalContainer>
         <ModalHeader>
-          <h3>Employee Created!</h3>
+          <h3>{titre}</h3>
         </ModalHeader>
         <ModalContent>
-          <p>Congratulations! You have successfully created a new employee.</p>
+          <p>{message}</p>
         </ModalContent>
         <ModalFooter>
           <CloseButton onClick={onClose}>Close</CloseButton>
