@@ -1,96 +1,117 @@
-import React, { useMemo } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import DataTable from 'react-data-table-component';
+import { useNavigate } from 'react-router-dom';
 
-// Styled Components
-const Table = styled.table`
-  border-collapse: collapse;
-  width: 100%;
+const Container = styled.div`
+  width:80%;
+  margin: auto;
+  padding:20px;
 `;
 
-const TableHead = styled.thead`
-  background-color: #f2f2f2;
+const Heading = styled.h2`
+  font-size: 24px;
+  margin-bottom: 20px;
 `;
 
-const TableCell = styled.td`
+const SearchInput = styled.input`
   padding: 8px;
-  border-bottom: 1px solid #ddd;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 16px;
 `;
 
-const TableHeaderCell = styled.th`
-  padding: 8px;
-  border-bottom: 1px solid #ddd;
-  font-weight: bold;
-  text-align: left;
-`;
+const Button = styled.button`
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 
-const EmptyRow = styled.tr`
-  background-color: white;
-  text-align: center;
-  font-style: italic;
+  &:hover {
+    background-color: #2980b9;
+  }
 `;
 
 
 const ListEmployees = () => {
   const employees = useSelector((root) => root.employees);
-  console.log(employees)
+  const [filter, setFilter]= useState(employees);
+  const navigate = useNavigate();
 
-  const data = useMemo(() => {
-    return employees; // Pas besoin de JSON.parse ici
-  }, [employees]);
-  
+  console.log(employees)
 
   const columns = [
       {
         name: 'First Name',
         selector: row => row.firstName,
+        sortable:true
       },
       {
         name: 'Last Name',
         selector: row => row.lastName,
+        sortable:true
       },
       {
         name: 'Date of Birth',
         selector: row => row.dateOfBirth,
+        sortable:true
       },
       {
         name: 'Start Date',
         selector: row => row.startDate,
+        sortable:true
       },
       {
         name: 'Department',
         selector: row => row.department,
+        sortable:true
       },
       {
         name: 'Street',
         selector: row => row.street,
+        sortable:true
       },
       {
         name: 'City',
         selector: row => row.city,
+        sortable:true
       },
       {
         name: 'State',
         selector: row => row.state,
+        sortable:true
       },
       {
         name: 'Zip Code',
         selector: row => row.zipCode,
+        sortable:true
       },
     ];
 
+    function handleNavigation(){
+      navigate('/');
+    }
 
+    function handleFilter(event){
+      const newData = employees.filter(row =>{
+        return row.firstName.toLowerCase().includes(event.target.value.toLowerCase())
+      });
+      setFilter(newData);
+    }
 
   return(
-    <div style={{ fontFamily: 'Arial, sans-serif' }}>
-      <h2>Employee List</h2>
-      <DataTable
-      columns={columns}
-      data={employees}>
-
-      </DataTable>
-    </div>
+    <Container>
+      <Button onClick={handleNavigation}>Accueil</Button>
+      <Heading>Employee List</Heading>
+      <SearchInput type="text" onChange={handleFilter} placeholder="Search by first name" />
+      <DataTable columns={columns} data={filter} pagination />
+  </Container>
   );
 };
 
