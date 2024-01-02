@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import EmployeeCreatedModal from '../composant/modal';
 import { states } from '../data/states';
-import DateRangePicker from '../composant/datePicker';
+//import DateRangePicker from '../composant/datePicker';
 import { useDispatch } from 'react-redux';
 import { addEmployee } from '../state/store';
 import { useNavigate } from "react-router-dom"; // Pour la redirection
+import DateRangePicker from 'date-picker-ap2';
 
 const Container = styled.div`
   background-color: #f2f2f2;
@@ -160,7 +161,7 @@ function EmployeeForm() {
 
           <DateRangePicker
             onDateChange={handleDateChangeDateBirth}
-            startDate2="2023-10-10"
+            startDate2="1905-10-10"
             endDate2="2023-12-24"
             label="Date de naissance"
             id='date-of-birth'
