@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { addEmployee } from '../state/store';
 import { useNavigate } from "react-router-dom"; // Pour la redirection
 import DateRangePicker from 'date-picker-ap2';
+import ListSelect from '../composant/listSelect';
 
 const Container = styled.div`
   background-color: #f2f2f2;
@@ -86,17 +87,6 @@ function EmployeeForm() {
   const hideConfirmationModal = () => {
     setConfirmationVisible(false);
   };
-
-  useEffect(() => {
-    // Initialisation du select "state"
-    const stateSelect = document.getElementById('state');
-    states.forEach((state) => {
-      const option = document.createElement('option');
-      option.value = state.abbreviation;
-      option.text = state.name;
-      stateSelect.appendChild(option);
-    });
-  }, []);
 
   const handleNavigation = () => {
     navigate("/liste-employees")
@@ -191,8 +181,7 @@ function EmployeeForm() {
             <Label htmlFor="city">City</Label>
             <Input id="city" type="text" />
 
-            <Label htmlFor="state">State</Label>
-            <Select name="state" id="state"></Select>
+            <ListSelect datas={states} id="state" />
 
             <Label htmlFor="zip-code">Zip Code</Label>
             <Input id="zip-code" type="number" />
