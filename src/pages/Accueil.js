@@ -181,7 +181,7 @@ function EmployeeForm() {
             <Label htmlFor="city">City</Label>
             <Input id="city" type="text" />
 
-            <ListSelect datas={states} id="state" />
+            <ListSelect datas={states} id="state" title="State" />
 
             <Label htmlFor="zip-code">Zip Code</Label>
             <Input id="zip-code" type="number" />

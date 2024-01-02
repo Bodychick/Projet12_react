@@ -14,7 +14,7 @@ const Select = styled.select`
   border-radius: 4px;
 `;
 
-function ListSelect({ datas, id }) {
+function ListSelect({ datas, id, title }) {
   useEffect(() => {
     const stateSelect = document.getElementById(id); // Retire les accolades autour de 'id'
     if (stateSelect) {
@@ -29,7 +29,7 @@ function ListSelect({ datas, id }) {
 
   return (
     <>
-      <Label htmlFor={id}>State</Label>
+      <Label htmlFor={id}>{title}</Label>
       <Select name={id} id={id}></Select>
     </>
   );
