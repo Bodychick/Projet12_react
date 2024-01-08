@@ -1,3 +1,29 @@
+# Description de l'application HRNet
+
+L'application HRNet est une application à destination des RH pour leur permettre d'ajouter chaque nouvel employé dans une base enregistré localement
+
+# Technologie utilisé
+
+- Framework : ReactJS
+- Gestionaire de state : Redux
+- Gestion des liens : react-router-dom
+
+# Pour installer
+
+- Supprimer le dossier node_modules puis le réinstaller avec :
+  "npm install"
+- Une fois toutes les dépendances installée : yarn start pour lancer le projet.
+
+# Versions utilisées :
+
+- NodeJS : 18.18.0
+- date-picker-ap2": "1.0.5",
+- react": "18.2.0",
+- react-redux": "8.1.3",
+- react-router-dom": "6.21.0",
+- redux": "4.2.1",
+- redux-persist": "6.0.0",
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
