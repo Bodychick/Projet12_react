@@ -16,7 +16,11 @@ const Select = styled.select`
 
 function ListSelect({ datas, id, title }) {
   useEffect(() => {
-    const stateSelect = document.getElementById(id); // Retire les accolades autour de 'id'
+    const stateSelect = document.getElementById(id);
+
+    // Efface les options existantes avant d'ajouter de nouvelles options
+    stateSelect.innerHTML = '';
+
     if (stateSelect) {
       datas.forEach((data) => {
         const option = document.createElement('option');
@@ -25,11 +29,11 @@ function ListSelect({ datas, id, title }) {
         stateSelect.appendChild(option);
       });
     }
-  }, [datas, id]); // Ajoute datas et id comme dépendances à useEffect pour surveiller leurs changements
+  }, [datas, id]);
 
   return (
     <>
-      <Label htmlFor={id}>{title}</Label>
+      <br/><Label htmlFor={id}>{title}</Label>
       <Select name={id} id={id}></Select>
     </>
   );

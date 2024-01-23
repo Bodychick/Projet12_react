@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import EmployeeCreatedModal from '../composant/modal';
 import { states } from '../data/states';
+import { department } from '../data/department';
 //import DateRangePicker from '../composant/datePicker';
 import { useDispatch } from 'react-redux';
 import { addEmployee } from '../state/store';
@@ -40,13 +41,6 @@ const Label = styled.label`
 `;
 
 const Input = styled.input`
-  padding: 10px;
-  margin-top: 5px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-`;
-
-const Select = styled.select`
   padding: 10px;
   margin-top: 5px;
   border: 1px solid #ccc;
@@ -132,7 +126,6 @@ function EmployeeForm() {
       setConfirmationVisible(true);
       console.log(confirmationVisible);
     }
-    
   };
 
   return (
@@ -187,18 +180,13 @@ function EmployeeForm() {
             <Input id="zip-code" type="number" />
           </fieldset>
 
-          <Label htmlFor="department">Department</Label>
-          <Select name="department" id="department">
-            <option>Sales</option>
-            <option>Marketing</option>
-            <option>Engineering</option>
-            <option>Human Resources</option>
-            <option>Legal</option>
-          </Select>
-        </CreateEmployeeForm>
+          <ListSelect datas={department} title="Department" id="department" />  
+
+          </CreateEmployeeForm>
 
         <Button onClick={saveEmployee}>Save</Button>
       </Container>
+
       {confirmationVisible && (
         <EmployeeCreatedModal 
         show={confirmationVisible} 

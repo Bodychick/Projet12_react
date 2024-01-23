@@ -1,13 +1,12 @@
 import './App.css';
 import EmployeeForm from './pages/Accueil';
 import ListEmployees from './pages/EmployeeList';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
     <div className="App">
-       <Router>
+      <Router >
         <Routes>
           <Route path="/" element={<EmployeeForm />} />
           <Route path="/liste-employees" element={<ListEmployees />} />

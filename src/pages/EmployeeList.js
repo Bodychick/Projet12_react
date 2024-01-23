@@ -98,12 +98,18 @@ const ListEmployees = () => {
       navigate('/');
     }
 
-    function handleFilter(event){
-      const newData = employees.filter(row =>{
-        return row.firstName.toLowerCase().includes(event.target.value.toLowerCase())
+    function handleFilter(event) {
+      const searchTerm = event.target.value.toLowerCase();
+      const newData = employees.filter(row => {
+        // Vérifiez si le terme de recherche est présent dans l'une des propriétés de l'objet `row`
+        return Object.values(row).some(value =>
+          value.toString().toLowerCase().includes(searchTerm)
+        );
       });
       setFilter(newData);
     }
+    
+  
 
   return(
     <Container>
@@ -111,7 +117,7 @@ const ListEmployees = () => {
       <Heading>Employee List</Heading>
       <SearchInput type="text" onChange={handleFilter} placeholder="Search by first name" />
       <DataTable columns={columns} data={filter} pagination />
-  </Container>
+    </Container>
   );
 };
 
